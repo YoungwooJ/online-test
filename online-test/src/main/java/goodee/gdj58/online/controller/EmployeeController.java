@@ -125,6 +125,7 @@ public class EmployeeController {
 	// 리스트
 	@GetMapping("/employee/empList")
 	public String empList(HttpSession session, Model model
+							, @RequestParam(value="search", required = false) String search
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
@@ -133,7 +134,7 @@ public class EmployeeController {
 			return "redirect:/employee/loginEmp";
 		}
 		
-		List<Employee> list = employeeService.getEmployeeList(currentPage, rowPerPage);
+		List<Employee> list = employeeService.getEmployeeList(search, currentPage, rowPerPage);
 		// request.setAttribute("list", list);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);

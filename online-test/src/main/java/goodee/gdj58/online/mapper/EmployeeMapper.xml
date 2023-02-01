@@ -37,7 +37,21 @@
 			, #{empName}
 		)
 	</insert>
-
+	
+	<select id="selectEmployeeListBySearch" 
+		resultType="goodee.gdj58.online.vo.Employee"
+		parameterType="java.util.Map">
+		
+		SELECT 
+			emp_no empNo<!-- rs.getInt("emp_no"), new Employee().setEmpNo() -->
+			, emp_id empId
+			, emp_name empName
+		FROM employee
+		WHERE emp_name = #{search}
+		ORDER BY emp_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
 	<select id="selectEmployeeList" 
 		resultType="goodee.gdj58.online.vo.Employee"
 		parameterType="java.util.Map">

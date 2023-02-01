@@ -11,7 +11,7 @@
 	<form method="post" action="${pageContext.request.contextPath}/employee/modifyEmpPw">
 		<table border="1">
 			<tr>
-				<td>비밀번호</td>
+				<td>현재 비밀번호</td>
 				<td>
 					<input type="password" name="oldPw">
 				</td>

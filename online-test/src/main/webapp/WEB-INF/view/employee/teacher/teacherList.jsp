@@ -12,12 +12,12 @@
 		<c:import url="/WEB-INF/view/employee/inc/empMenu.jsp"></c:import>
 	</div>
 	
-	<h1>Teacher List</h1>
+	<h1>선생님 목록</h1>
 	<a href="${pageContext.request.contextPath}/employee/teacher/addTeacher">선생님 등록</a>
 	<table border="1">
 		<tr>
-			<th>teacherId</th>
-			<th>teacherName</th>
+			<th>선생님 아이디</th>
+			<th>선생님 이름</th>
 			<th>삭제</th>
 		</tr>
 		<c:forEach var="t" items="${list}">

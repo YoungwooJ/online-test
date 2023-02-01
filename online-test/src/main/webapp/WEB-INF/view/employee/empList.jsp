@@ -12,12 +12,12 @@
 		<c:import url="/WEB-INF/view/employee/inc/empMenu.jsp"></c:import>
 	</div>
 	
-	<h1>Employee List</h1>
-	<a href="${pageContext.request.contextPath}/employee/addEmp">사원등록</a>
+	<h1>직원 목록</h1>
+	<a href="${pageContext.request.contextPath}/employee/addEmp">직원등록</a>
 	<table border="1">
 		<tr>
-			<th>empId</th>
-			<th>empName</th>
+			<th>직원 아이디</th>
+			<th>직원 이름</th>
 			<th>삭제</th>
 		</tr>
 		<c:forEach var="e" items="${list}">
@@ -45,5 +45,11 @@
 		</c:if>
 		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=50">마지막</a>
 	</div>
+	
+	<!-- 검색 기능 -->
+	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
+		<input type="text" placeholder="직원 이름" name="search">
+		<button type="submit">검색</button>
+	</form>
 </body>
 </html>

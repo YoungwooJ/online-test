@@ -6,7 +6,7 @@
 <title>addEmp.jsp</title>
 </head>
 <body>
-	<h1>사원추가</h1>
+	<h1>직원추가</h1>
 	<div style="color:red;">${errorMsg}</div>
 	<form method="post" action="${pageContext.request.contextPath}/employee/addEmp">
 		<table border="1">
@@ -23,7 +23,7 @@
 				<td><input type="text" name="empName"></td>
 			</tr>	
 		</table>
-		<button type="submit">사원추가</button>
+		<button type="submit">직원추가</button>
 	</form>
 </body>
 </html>
