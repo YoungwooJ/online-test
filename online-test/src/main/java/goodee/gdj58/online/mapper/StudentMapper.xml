@@ -6,6 +6,11 @@
 		resultType="int">
 		SELECT COUNT(*)
 		FROM student
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				student_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 	</select>
 	
 	<update id="updateStudentPw"

@@ -16,8 +16,8 @@ import goodee.gdj58.online.vo.Teacher;
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
-	public int getTeacherCount() {
-		return teacherMapper.selectTeacherCount();
+	public int getTeacherCount(String searchWord) {
+		return teacherMapper.selectTeacherCount(searchWord);
 	}
 	
 	public int modifyTeacherPw(int teacherNo, String oldPw, String newPw) {

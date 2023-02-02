@@ -16,8 +16,8 @@ import goodee.gdj58.online.vo.Student;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
-	public int getStudentCount() {
-		return studentMapper.selectStudentCount();
+	public int getStudentCount(String searchWord) {
+		return studentMapper.selectStudentCount(searchWord);
 	}
 	
 	public int modifyStudentPw(int studentNo, String oldPw, String newPw) {

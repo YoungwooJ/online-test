@@ -107,9 +107,9 @@ public class TeacherController {
 		// request.setAttribute("list", list);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("serachWord", searchWord);
+		model.addAttribute("searchWord", searchWord);
 		
-		int count = teacherService.getTeacherCount();
+		int count = teacherService.getTeacherCount(searchWord);
 		int endPage = (int)Math.ceil((double)count / (double)rowPerPage);
 		// 블록 페이지
 		// 현재 페이지가 속한 block의 시작 번호, 끝 번호를 계산

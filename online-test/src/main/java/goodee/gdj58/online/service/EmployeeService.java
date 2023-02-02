@@ -17,8 +17,8 @@ public class EmployeeService {
 	// DI new EmployeeMapper()
 	@Autowired private EmployeeMapper employeeMapper;
 	
-	public int getEmployeeCount() {
-		return employeeMapper.selectEmployeeCount();
+	public int getEmployeeCount(String searchWord) {
+		return employeeMapper.selectEmployeeCount(searchWord);
 	}
 	
 	public int modifyEmployeePw(int empNo, String oldPw, String newPw) {

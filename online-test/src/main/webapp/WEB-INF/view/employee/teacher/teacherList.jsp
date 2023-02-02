@@ -35,7 +35,7 @@
 	
 	<!-- 검색 기능 -->
 	<form method="get" action="${pageContext.request.contextPath}/employee/teacher/teacherList">
-		<input type="text" placeholder="선생님 이름" name="searchWord">
+		<input type="text" placeholder="선생님 이름" name="searchWord" value="${searchWord}">
 		<button type="submit">검색</button>
 	</form>
 	
@@ -45,9 +45,18 @@
 		<c:if test="${currentPage > 10}">
 			<a href="${pageContext.request.contextPath}/employee/teacher/teacherList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a>
 		</c:if>
-		<c:forEach begin="${blockStartNum}" end="${endPage}" step="1" varStatus="status">
-			<a href="${pageContext.request.contextPath}/employee/teacher/teacherList?currentPage=${status.current}&searchWord=${searchWord}">${status.current}</a>
-		</c:forEach>
+				<c:choose>
+			<c:when test="${endPage > 10}">
+				<c:forEach begin="${blockStartNum}" end="${blockLastNum}" step="1" varStatus="status">
+					<a href="${pageContext.request.contextPath}/employee/teacher/teacherList?currentPage=${status.current}&searchWord=${searchWord}">${status.current}</a>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<c:forEach begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+					<a href="${pageContext.request.contextPath}/employee/teacher/teacherList?currentPage=${status.current}&searchWord=${searchWord}">${status.current}</a>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 		<c:if test="${currentPage < endPage}">
 		<a href="${pageContext.request.contextPath}/employee/teacher/teacherList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a>
 		</c:if>
