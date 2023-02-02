@@ -15,7 +15,7 @@
 		
 		SELECT
 			emp_no empNo
-			,emp_id empId
+			, emp_id empId
 			, emp_name empName
 		FROM employee
 		WHERE emp_id = #{empId} AND emp_pw = PASSWORD(#{empPw})
