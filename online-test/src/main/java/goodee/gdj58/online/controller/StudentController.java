@@ -95,14 +95,31 @@ public class StudentController {
 	// 리스트
 	@GetMapping("/employee/student/studentList")
 	public String studentList(Model model
+							, @RequestParam(value="searchWord", defaultValue = "") String searchWord
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
-		
-		List<Student> list = studentService.getStudentList(currentPage, rowPerPage);
+		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
+		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
+		log.debug("\u001B[31m"+searchWord+"<-- searchWord");
+		List<Student> list = studentService.getStudentList(searchWord, currentPage, rowPerPage);
 		// request.setAttribute("list", list);
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("serachWord", searchWord);
+		
+		int count = studentService.getStudentCount();
+		int endPage = (int)Math.ceil((double)count / (double)rowPerPage);
+		// 블록 페이지
+		// 현재 페이지가 속한 block의 시작 번호, 끝 번호를 계산
+		int blockNum = (int)Math.floor((currentPage-1)/rowPerPage);
+		int blockStartNum = (rowPerPage*blockNum) + 1;
+		int blockLastNum = blockStartNum + (rowPerPage-1);
+		
+		model.addAttribute("startPage", 1);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("blockStartNum", blockStartNum);
+		model.addAttribute("blockLastNum", blockLastNum);
 		return "employee/student/studentList";
 	}
 }

@@ -17,6 +17,10 @@ public class EmployeeService {
 	// DI new EmployeeMapper()
 	@Autowired private EmployeeMapper employeeMapper;
 	
+	public int getEmployeeCount() {
+		return employeeMapper.selectEmployeeCount();
+	}
+	
 	public int modifyEmployeePw(int empNo, String oldPw, String newPw) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("empNo", empNo);
@@ -37,16 +41,12 @@ public class EmployeeService {
 		return employeeMapper.insertEmployee(employee);
 	}
 	
-	public List<Employee> getEmployeeList(String search, int currentPage, int rowPerPage){
+	public List<Employee> getEmployeeList(String searchWord, int currentPage, int rowPerPage){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
-		if(search == null || search.equals("")) {
-			return employeeMapper.selectEmployeeList(paramMap);
-		} else {
-			paramMap.put("search", search);
-			return employeeMapper.selectEmployeeListBySearch(paramMap);
-		}
+		paramMap.put("searchWord", searchWord);
+		return employeeMapper.selectEmployeeList(paramMap);
 	}
 }

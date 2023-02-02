@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="goodee.gdj58.online.mapper.EmployeeMapper">
 
+	<select id="selectEmployeeCount"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM employee
+	</select>
+
 	<update id="updateEmployeePw"
 		parameterType="java.util.Map">
 		UPDATE employee
@@ -38,20 +44,6 @@
 		)
 	</insert>
 	
-	<select id="selectEmployeeListBySearch" 
-		resultType="goodee.gdj58.online.vo.Employee"
-		parameterType="java.util.Map">
-		
-		SELECT 
-			emp_no empNo<!-- rs.getInt("emp_no"), new Employee().setEmpNo() -->
-			, emp_id empId
-			, emp_name empName
-		FROM employee
-		WHERE emp_name = #{search}
-		ORDER BY emp_no DESC
-		LIMIT #{beginRow}, #{rowPerPage}
-	</select>
-	
 	<select id="selectEmployeeList" 
 		resultType="goodee.gdj58.online.vo.Employee"
 		parameterType="java.util.Map">
@@ -61,6 +53,11 @@
 			, emp_id empId
 			, emp_name empName
 		FROM employee
+		<where>
+			<if test="searchWord != null || searchWord != ''">
+				emp_name LIKE CONCAT('%',#{searchWord},'%')
+			</if>
+		</where>
 		ORDER BY emp_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

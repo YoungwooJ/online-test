@@ -9,6 +9,7 @@ import goodee.gdj58.online.vo.Teacher;
 
 @Mapper
 public interface TeacherMapper {
+	int selectTeacherCount();
 	int updateTeacherPw(Map<String, Object> paramMap);
 	Teacher login(Teacher teacher);
 	int deleteTeacher(int teacherNo);

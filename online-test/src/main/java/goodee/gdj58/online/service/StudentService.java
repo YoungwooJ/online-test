@@ -16,6 +16,10 @@ import goodee.gdj58.online.vo.Student;
 public class StudentService {
 	@Autowired private StudentMapper studentMapper;
 	
+	public int getStudentCount() {
+		return studentMapper.selectStudentCount();
+	}
+	
 	public int modifyStudentPw(int studentNo, String oldPw, String newPw) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("studentNo", studentNo);
@@ -36,11 +40,12 @@ public class StudentService {
 		return studentMapper.insertStudent(student);
 	}
 	
-	public List<Student> getStudentList(int currentPage, int rowPerPage){
+	public List<Student> getStudentList(String searchWord, int currentPage, int rowPerPage){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		return studentMapper.selectStudentList(paramMap);
 	}
 }

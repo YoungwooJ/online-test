@@ -16,6 +16,10 @@ import goodee.gdj58.online.vo.Teacher;
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
+	public int getTeacherCount() {
+		return teacherMapper.selectTeacherCount();
+	}
+	
 	public int modifyTeacherPw(int teacherNo, String oldPw, String newPw) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("teacherNo", teacherNo);
@@ -36,11 +40,12 @@ public class TeacherService {
 		return teacherMapper.insertTeacher(teacher);
 	}
 	
-	public List<Teacher> getTeacherList(int currentPage, int rowPerPage){
+	public List<Teacher> getTeacherList(String searchWord, int currentPage, int rowPerPage){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("searchWord", searchWord);
 		return teacherMapper.selectTeacherList(paramMap);
 	}
 }

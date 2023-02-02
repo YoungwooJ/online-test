@@ -9,10 +9,10 @@ import goodee.gdj58.online.vo.Employee;
 
 @Mapper
 public interface EmployeeMapper {
+	int selectEmployeeCount();
 	int updateEmployeePw(Map<String, Object> paramMap);
 	Employee login(Employee employee);
 	int deleteEmployee(int empNo);
 	int insertEmployee(Employee employee);
-	List<Employee> selectEmployeeListBySearch(Map<String, Object> paramMap);
 	List<Employee> selectEmployeeList(Map<String, Object> paramMap);
 }

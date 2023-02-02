@@ -33,23 +33,25 @@
 		</c:forEach>
 	</table>
 	
-	<!-- 페이징 -->
-	<div>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=1">처음</a>
-		<c:if test="${currentPage > 1}">
-			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}">이전</a>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage}">${currentPage}</a>
-		<c:if test="${currentPage < 50}">
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}">다음</a>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=50">마지막</a>
-	</div>
-	
 	<!-- 검색 기능 -->
 	<form method="get" action="${pageContext.request.contextPath}/employee/empList">
-		<input type="text" placeholder="직원 이름" name="search">
+		<input type="text" placeholder="직원 이름" name="searchWord">
 		<button type="submit">검색</button>
 	</form>
+	
+	<!-- 페이징 -->
+	<div>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${startPage}&searchWord=${searchWord}">처음</a>
+		<c:if test="${currentPage > 10}">
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage-1}&searchWord=${searchWord}">이전</a>
+		</c:if>
+		<c:forEach begin="${blockStartNum}" end="${blockLastNum}" step="1" varStatus="status">
+			<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${status.current}&searchWord=${searchWord}">${status.current}</a>
+		</c:forEach>
+		<c:if test="${currentPage < endPage}">
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${currentPage+1}&searchWord=${searchWord}">다음</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/employee/empList?currentPage=${endPage}&searchWord=${searchWord}">마지막</a>
+	</div>
 </body>
 </html>
