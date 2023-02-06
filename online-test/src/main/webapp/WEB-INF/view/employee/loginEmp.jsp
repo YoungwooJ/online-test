@@ -29,6 +29,7 @@
 	<c:if test="${loginEmp ne null}">
 		${loginEmp.empName}님 반갑습니다
 		<a href="${pageContext.request.contextPath}/employee/logout">로그아웃</a>
+		<a href="${pageContext.request.contextPath}/employee/modifyEmpPw">비밀번호수정</a>
 	</c:if>
 </body>
 </html>
