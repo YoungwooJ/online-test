@@ -20,36 +20,48 @@ public class ExampleController {
 	
 	// 삭제
 	@GetMapping("/example/removeExample")
-	public String removeExample(@RequestParam("exampleNo") int exampleNo) {
+	public String removeExample(Model model
+			, @RequestParam(value="testNo", required = true) int testNo
+			, @RequestParam("exampleNo") int exampleNo) {
 		exampleService.removeExample(exampleNo);
-		return "redirect:/example/exampleList";
+		model.addAttribute("testNo", testNo);
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
 	// 수정 폼
 	@GetMapping("/example/modifyExample")
 	public String modifyExample(Model model
+			, @RequestParam(value="testNo", required = true) int testNo
 			, @RequestParam(value="exampleNo", required = true) int exampleNo) {
 		Example example = exampleService.getExampleOne(exampleNo);
 		model.addAttribute("example", example);
+		model.addAttribute("testNo", testNo);
 		return "example/modifyExample";
 	}
 	// 수정 액션
 	@PostMapping("/example/modifyExample")
-	public String modifyExample(Example example) {
-		exampleService.modifyExample(example);
+	public String modifyExample(@RequestParam(value="testNo", required = true) int testNo
+							, @RequestParam(value="exampleNo", required = true) int exampleNo
+							, @RequestParam(value="exampleIdx", required = true) int exampleIdx
+							, @RequestParam(value="exampleTitle", required = true) String exampleTitle
+							, @RequestParam(value="exampleOx", required = true) String exampleOx) {
+		exampleService.modifyExample(exampleNo, exampleIdx, exampleTitle, exampleOx);
 		
-		return "redirect:/example/modifyExample";
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
 	// 입력
 	@GetMapping("/example/addExample")
 	public String addExample(Model model
+							, @RequestParam(value="testNo", required = true) int testNo
 							, @RequestParam(value="questionNo", required = true) int questionNo) {
-		model.addAttribute("questionNo", "questionNo");
+		model.addAttribute("questionNo", questionNo);
+		model.addAttribute("testNo", testNo);
 		return "example/addExample";
 	}
 	@PostMapping("/example/addExample")
 	public String addExample(Model model
+							, @RequestParam(value="testNo", required = true) int testNo
 							, @RequestParam(value="questionNo", required = true) int questionNo
 							, @RequestParam(value="exampleIdx", required = true) int exampleIdx
 							, @RequestParam(value="exampleTitle", required = true) String exampleTitle
@@ -60,7 +72,7 @@ public class ExampleController {
 			model.addAttribute("errorMsg", "시스템에러로 등록실패하였습니다.");
 			return "example/addExample";
 		}
-		return "redirect:/example/exampleList";
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	/*
 	// 리스트

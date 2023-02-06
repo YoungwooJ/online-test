@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>questioniList.jsp</title>
+<title>questionList.jsp</title>
 </head>
 <body>
 	<!-- teacherMenu include -->
@@ -13,38 +13,52 @@
 	</div>
 	
 	<h1>시험 문제</h1>
-	<a href="${pageContext.request.contextPath}/question/addQuestion?testNo=${testNo}">문제 추가</a>
-	<table border="1">
-		<c:forEach var="q" items="${list}">
-			<c:forEach var="e" items="${exList}">
-				<tr>
-					<th>${q.questionIdx}. ${q.questionTitle}</th>
-					<td>
-						<a href="${pageContext.request.contextPath}/question/modifyQuestion?questionNo=${q.questionNo}">
-							수정
-						</a>
-						<a href="${pageContext.request.contextPath}/question/removeQuestion?questionNo=${q.questionNo}">
-							삭제
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>${e.exampleIdx}. ${q.exampleTitle}</td>
-					<td>
-						<a href="${pageContext.request.contextPath}/example/addExample?questionNo=${q.questionNo}">
-							수정
-						</a>
-						<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}">
-							수정
-						</a>
-						<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}">
-							삭제
-						</a>
-					</td>
-				</tr>
+	<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
+		<a href="${pageContext.request.contextPath}/question/addQuestion?testNo=${testNo}">문제 추가</a>
+		<table border="1">
+			<c:forEach var="q" items="${qList}">
+					<tr>
+						<th>
+							${q.questionIdx}. ${q.questionTitle}
+							<input type="hidden" name="questionNo" value="${q.questionNo}">
+							<input type="hidden" name="studentNo" value="${studentNo}">
+						</th>
+						<td>
+							<a href="${pageContext.request.contextPath}/question/modifyQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
+								수정
+							</a>
+							<a href="${pageContext.request.contextPath}/question/removeQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
+								삭제
+							</a>
+						</td>
+					</tr>
+				<c:forEach var="e" items="${exList}">	
+					<tr>
+						<td>
+							${e.exampleIdx}. ${e.exampleTitle}
+							<input type="radio" name="answer" value="${e.exampleIdx}">
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+								수정
+							</a>
+							<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+								삭제
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+					<tr>
+						<td colspan="2">
+							<a href="${pageContext.request.contextPath}/example/addExample?questionNo=${q.questionNo}&testNo=${testNo}">
+								보기 추가
+							</a>
+						</td>
+					</tr>
 			</c:forEach>
-		</c:forEach>
-	</table>
+		</table>
+		<button type="submit">제출</button>
+	</form>
 	
 	<!-- 페이징 -->
 	<div>

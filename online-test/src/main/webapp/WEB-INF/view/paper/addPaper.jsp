@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>addQuestion.jsp</title>
+<title>addPaper.jsp</title>
 </head>
 <body>
-	<h1>문제추가</h1>
+	<h1>답안 추가</h1>
 	<div style="color:red;">${errorMsg}</div>
-	<form method="post" action="${pageContext.request.contextPath}/question/addQuestion">
+	<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
 		<table border="1">
 			<tr>
 				<td>시험 번호</td>

@@ -24,7 +24,12 @@ public class ExampleService {
 		return exampleMapper.deleteExample(exampleNo);
 	}
 	
-	public int modifyExample(Example example) {
+	public int modifyExample(int exampleNo, int exampleIdx, String exampleTitle, String exampleOx) {
+		Example example = new Example();
+		example.setExampleNo(exampleNo);
+		example.setExampleIdx(exampleIdx);
+		example.setExampleTitle(exampleTitle);
+		example.setExampleOx(exampleOx);
 		return exampleMapper.updateExample(example);
 	}
 	

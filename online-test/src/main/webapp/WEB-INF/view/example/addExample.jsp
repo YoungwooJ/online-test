@@ -13,7 +13,10 @@
 		<table border="1">
 			<tr>
 				<td>문제 번호</td>
-				<td><input type="number" name="questionNo" value="${questionNo}" readonly="readonly"></td>
+				<td>
+					<input type="number" name="questionNo" value="${questionNo}" readonly="readonly">
+					<input type="hidden" name="testNo" value="${testNo}">
+				</td>
 			</tr>
 			<tr>
 				<td>보기 번호</td>
@@ -31,7 +34,7 @@
 				</td>
 			</tr>
 		</table>
-		<button type="submit">문제추가</button>
+		<button type="submit">보기추가</button>
 	</form>
 </body>
 </html>

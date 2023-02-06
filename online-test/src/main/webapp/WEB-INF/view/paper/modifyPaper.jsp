@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-	<title>modifyQuestion</title>
+	<meta charset="UTF-8">
+	<title>modifyPaper</title>
 	</head>
 <body>
-	<h1>시험 제목 수정</h1>
+	<h1>답안 수정</h1>
 	<form method="post" action="${pageContext.request.contextPath}/question/modifyQuestion">
 		<table border="1">
 			<tr>

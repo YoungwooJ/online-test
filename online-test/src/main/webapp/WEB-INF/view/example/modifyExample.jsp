@@ -15,6 +15,7 @@
 				<td>
 					<input type="number" name="exampleIdx" value="${example.exampleIdx}" readonly="readonly">
 					<input type="hidden" name="exampleNo" value="${example.exampleNo}">
+					<input type="hidden" name="testNo" value="${testNo}">
 				</td>
 			</tr>
 			<tr>
@@ -28,14 +29,14 @@
 				<c:choose>
 					<c:when test="${example.exampleOx eq '정답'}">
 						<td>
-							<input type="radio" name="exampleOx" value="정답" checked="checked">
-							<input type="radio" name="exampleOx" value="오답">
+							<input type="radio" name="exampleOx" value="정답" checked="checked">정답
+							<input type="radio" name="exampleOx" value="오답">오답
 						</td>
 					</c:when>
 					<c:otherwise>
 						<td>
-							<input type="radio" name="exampleOx" value="정답">
-							<input type="radio" name="exampleOx" value="오답" checked="checked">
+							<input type="radio" name="exampleOx" value="정답">정답
+							<input type="radio" name="exampleOx" value="오답" checked="checked">오답
 						</td>
 					</c:otherwise>
 				</c:choose>

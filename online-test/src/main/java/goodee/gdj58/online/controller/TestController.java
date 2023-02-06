@@ -27,9 +27,10 @@ public class TestController {
 	
 	// 수정 폼
 	@GetMapping("/test/modifyTest")
-	public String modifyTest(int testNo) {
-		testService.getTestOne(testNo);
-		
+	public String modifyTest(Model model
+							, @RequestParam(value="testNo", required = true) int testNo) {
+		Test test = testService.getTestOne(testNo);
+		model.addAttribute("test", test);
 		return "test/modifyTest";
 	}
 	// 수정 액션
@@ -38,7 +39,7 @@ public class TestController {
 							, @RequestParam(value="testTitle", required = true) String testTitle) {
 		testService.modifyTest(testNo, testTitle);
 		
-		return "redirect:/test/modifyTest";
+		return "redirect:/test/testList";
 	}
 	
 	// 입력

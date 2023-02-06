@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.PaperMapper">
+	
+	<select id="selectPaperCount"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM paper
+	</select>
+	
+	<delete id="deletePaper" parameterType="int">
+		DELETE FROM paper
+		WHERE paper_no = #{paperNo}
+	</delete>
+	
+	<update id="updatePaper"
+		parameterType="goodee.gdj58.online.vo.Paper">
+		UPDATE paper
+		SET student_no = #{studentNo}
+			, question_no = #{questionNo}
+			, answer = #{answer}
+		WHERE paper_no = #{paperNo}
+	</update>
+
+	<insert id="insertPaper" parameterType="goodee.gdj58.online.vo.Paper">
+		INSERT INTO paper (
+			student_no
+			, question_no
+			, answer
+		) VALUES (
+			#{studentNo}
+			, #{questionNo}
+			, #{answer}
+		)
+	</insert>
+	
+	<select id="selectPaperOne"
+		resultType="goodee.gdj58.online.vo.Paper"
+		parameterType="int">
+		
+		SELECT 
+			paper_no paperNo
+			, student_no studentNo
+			, question_no questionNo
+			, answer
+		FROM paper
+		WHERE paper_no = #{paperNo}
+	</select>
+	
+	<select id="selectPaperList" 
+		resultType="goodee.gdj58.online.vo.Paper"
+		parameterType="java.util.Map">
+		
+		SELECT 
+			paper_no paperNo
+			, student_no studentNo
+			, question_no questionNo
+			, answer
+		FROM paper
+		WHERE student_no = #{studentNo}
+		ORDER BY paper_no ASC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+</mapper>

@@ -2,6 +2,8 @@ package goodee.gdj58.online.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import goodee.gdj58.online.service.ExampleService;
 import goodee.gdj58.online.service.QuestionService;
 import goodee.gdj58.online.vo.Example;
 import goodee.gdj58.online.vo.Question;
+import goodee.gdj58.online.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,32 +26,40 @@ public class QuestionController {
 	
 	// 삭제
 	@GetMapping("/question/removeQuestion")
-	public String removeQuestion(@RequestParam("questionNo") int questionNo) {
+	public String removeQuestion(Model model
+								, @RequestParam(value="testNo", required = true) int testNo
+								, @RequestParam("questionNo") int questionNo) {
 		questionService.removeQuestion(questionNo);
-		return "redirect:/question/questionList";
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
 	// 수정 폼
 	@GetMapping("/question/modifyQuestion")
 	public String modifyQuestion(Model model
+								, @RequestParam(value="testNo", required = true) int testNo
 								, @RequestParam(value="questionNo", required = true) int questionNo) {
 		Question question = questionService.getQuestionOne(questionNo);
 		model.addAttribute("question", question);
+		model.addAttribute("testNo", testNo);
 		return "question/modifyQuestion";
 	}
 	// 수정 액션
 	@PostMapping("/question/modifyQuestion")
-	public String modifyQuestion(@RequestParam(value="questionNo", required = true) int questionNo
+	public String modifyQuestion(Model model
+								, @RequestParam(value="testNo", required = true) int testNo
+								, @RequestParam(value="questionNo", required = true) int questionNo
 								, @RequestParam(value="questionIdx", required = true) int questionIdx
 								, @RequestParam(value="questionTitle", required = true) String questionTitle) {
 		questionService.modifyQuestion(questionNo, questionIdx, questionTitle);
 		
-		return "redirect:/question/modifyQuestion";
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
 	// 입력
 	@GetMapping("/question/addQuestion")
-	public String addQuestion() {	
+	public String addQuestion(Model model
+							, @RequestParam(value="testNo", required = true) int testNo) {	
+		model.addAttribute("testNo", testNo);
 		return "question/addQuestion";
 	}
 	@PostMapping("/question/addQuestion")
@@ -62,12 +73,13 @@ public class QuestionController {
 			model.addAttribute("errorMsg", "시스템에러로 등록실패하였습니다.");
 			return "question/addQuestion";
 		}
-		return "redirect:/question/questionList";
+		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
 	// 리스트
 	@GetMapping("/question/questionList")
 	public String questionList(Model model
+							, HttpSession session
 							, @RequestParam(value="testNo", required = true) int testNo
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
@@ -78,10 +90,16 @@ public class QuestionController {
 		int questionNo = 0;
 		for(Question q : qList) {
 			questionNo = q.getQuestionNo();
+			List<Example> exList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
+			model.addAttribute("exList", exList);
 		}
+		/*
 		List<Example> exList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
-		// request.setAttribute("list", list);
 		model.addAttribute("exList", exList);
+		*/
+		Student student = (Student)session.getAttribute("loginStudent");
+		int studentNo = student.getStudentNo();
+		model.addAttribute("studentNo", studentNo);
 		model.addAttribute("qList", qList);
 		model.addAttribute("testNo", testNo);
 		model.addAttribute("currentPage", currentPage);

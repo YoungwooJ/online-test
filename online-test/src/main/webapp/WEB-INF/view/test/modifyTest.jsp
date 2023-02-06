@@ -13,19 +13,19 @@
 			<tr>
 				<td>시험 번호</td>
 				<td>
-					<input type="number" name="testNo" value="${testNo}" readonly="readonly">
+					<input type="number" name="testNo" value="${test.testNo}" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<td>시험 제목</td>
 				<td>
-					<input type="text" name="testTitle" value="${testTitle}">
+					<input type="text" name="testTitle" value="${test.testTitle}">
 				</td>
 			</tr>
 			<tr>
 				<td>생성 날짜</td>
 				<td>
-					<input type="text" name="testDate" value="${testDate}" readonly="readonly">
+					<input type="text" name="testDate" value="${test.testDate}" readonly="readonly">
 				</td>
 			</tr>
 		</table>

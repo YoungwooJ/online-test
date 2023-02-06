@@ -23,11 +23,11 @@
 
 	<insert id="insertQuestion" parameterType="goodee.gdj58.online.vo.Question">
 		INSERT INTO question (
-			test_no testNo
-			, question_idx questionIdx
-			, question_title questionTitle
+			test_no
+			, question_idx 
+			, question_title
 		) VALUES (
-			, #{testNo}
+			#{testNo}
 			, #{questionIdx}
 			, #{questionTitle}
 		)
@@ -57,7 +57,7 @@
 			, question_title questionTitle
 		FROM question
 		WHERE test_no = #{testNo}
-		ORDER BY question_no DESC
+		ORDER BY question_no ASC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 </mapper>
