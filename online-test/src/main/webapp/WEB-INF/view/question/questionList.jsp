@@ -14,7 +14,9 @@
 	
 	<h1>시험 문제</h1>
 	<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
+		<c:if test="${loginTeacher ne null}">
 		<a href="${pageContext.request.contextPath}/question/addQuestion?testNo=${testNo}">문제 추가</a>
+		</c:if>
 		<table border="1">
 			<c:forEach var="q" items="${qList}">
 					<tr>
@@ -23,6 +25,7 @@
 							<input type="hidden" name="questionNo" value="${q.questionNo}">
 							<input type="hidden" name="studentNo" value="${studentNo}">
 						</th>
+						<c:if test="${loginTeacher ne null}">
 						<td>
 							<a href="${pageContext.request.contextPath}/question/modifyQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
 								수정
@@ -31,13 +34,17 @@
 								삭제
 							</a>
 						</td>
+						</c:if>
 					</tr>
 				<c:forEach var="e" items="${exList}">	
 					<tr>
 						<td>
 							${e.exampleIdx}. ${e.exampleTitle}
+							<c:if test="${studentNo ne null}">
 							<input type="radio" name="answer" value="${e.exampleIdx}">
+							</c:if>
 						</td>
+						<c:if test="${loginTeacher ne null}">
 						<td>
 							<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
 								수정
@@ -46,8 +53,10 @@
 								삭제
 							</a>
 						</td>
+						</c:if>
 					</tr>
 				</c:forEach>
+					<c:if test="${loginTeacher ne null}">
 					<tr>
 						<td colspan="2">
 							<a href="${pageContext.request.contextPath}/example/addExample?questionNo=${q.questionNo}&testNo=${testNo}">
@@ -55,9 +64,12 @@
 							</a>
 						</td>
 					</tr>
+					</c:if>
 			</c:forEach>
 		</table>
+		<c:if test="${studentNo ne null}">
 		<button type="submit">제출</button>
+		</c:if>
 	</form>
 	
 	<!-- 페이징 -->

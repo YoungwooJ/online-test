@@ -61,7 +61,7 @@ public class PaperController {
 		// row == 1 이면 입력성공
 		if(row == 0) {
 			model.addAttribute("errorMsg", "시스템에러로 등록실패하였습니다.");
-			return "paper/addPaper";
+			return "question/questionList";
 		}
 		return "redirect:/paper/paperList?studentNo="+studentNo;
 	}
@@ -92,6 +92,6 @@ public class PaperController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("blockStartNum", blockStartNum);
 		model.addAttribute("blockLastNum", blockLastNum);
-		return "question/questionList";
+		return "paper/paperList";
 	}
 }

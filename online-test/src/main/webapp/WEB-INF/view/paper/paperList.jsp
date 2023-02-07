@@ -13,11 +13,11 @@
 	</div>
 	
 	<h1>제출 답안</h1>
-	<a href="${pageContext.request.contextPath}/paper/addPaper?paperNo=${paperNo}">문제 추가</a>
 	<table border="1">
 		<c:forEach var="p" items="${list}">
 				<tr>
-					<th>${p.questionNo}. ${p.answer}</th>
+					<th>문제 ${p.questionNo}. ${p.answer}번</th>
+					<!-- 
 					<td>
 						<a href="${pageContext.request.contextPath}/paper/modifyPaper?paperNo=${p.paperNo}">
 							수정
@@ -26,6 +26,7 @@
 							삭제
 						</a>
 					</td>
+					 -->
 				</tr>
 		</c:forEach>
 	</table>

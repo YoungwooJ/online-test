@@ -16,6 +16,7 @@ import goodee.gdj58.online.service.QuestionService;
 import goodee.gdj58.online.vo.Example;
 import goodee.gdj58.online.vo.Question;
 import goodee.gdj58.online.vo.Student;
+import goodee.gdj58.online.vo.Teacher;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -76,7 +77,7 @@ public class QuestionController {
 		return "redirect:/question/questionList?testNo="+testNo;
 	}
 	
-	// 리스트
+	// question, example 리스트, add paper
 	@GetMapping("/question/questionList")
 	public String questionList(Model model
 							, HttpSession session
@@ -97,9 +98,16 @@ public class QuestionController {
 		List<Example> exList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
 		model.addAttribute("exList", exList);
 		*/
-		Student student = (Student)session.getAttribute("loginStudent");
-		int studentNo = student.getStudentNo();
-		model.addAttribute("studentNo", studentNo);
+		if(session.getAttribute("loginStudent") != null) {
+			Student student = (Student)session.getAttribute("loginStudent");
+			int studentNo = student.getStudentNo();
+			model.addAttribute("studentNo", studentNo);
+		}
+		if(session.getAttribute("loginTeacher") != null) {
+			Teacher loginTeacher = (Teacher)session.getAttribute("loginTeacher");
+			model.addAttribute("loginTeacher", loginTeacher);
+		}
+		
 		model.addAttribute("qList", qList);
 		model.addAttribute("testNo", testNo);
 		model.addAttribute("currentPage", currentPage);
