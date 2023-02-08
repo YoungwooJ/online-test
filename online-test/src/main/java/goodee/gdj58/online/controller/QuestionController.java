@@ -1,5 +1,6 @@
 package goodee.gdj58.online.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -87,17 +88,19 @@ public class QuestionController {
 							// int currentPage = request.getParameter("currentPage");
 		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
 		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
+		
 		List<Question> qList = questionService.getQuestionList(testNo, currentPage, rowPerPage);
+		model.addAttribute("qList", qList);
+		
 		int questionNo = 0;
+		List<List<Example>> exList = new ArrayList<>();
 		for(Question q : qList) {
 			questionNo = q.getQuestionNo();
-			List<Example> exList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
-			model.addAttribute("exList", exList);
+			List<Example> list = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
+			exList.add(list);
 		}
-		/*
-		List<Example> exList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
 		model.addAttribute("exList", exList);
-		*/
+		
 		if(session.getAttribute("loginStudent") != null) {
 			Student student = (Student)session.getAttribute("loginStudent");
 			int studentNo = student.getStudentNo();
@@ -108,7 +111,6 @@ public class QuestionController {
 			model.addAttribute("loginTeacher", loginTeacher);
 		}
 		
-		model.addAttribute("qList", qList);
 		model.addAttribute("testNo", testNo);
 		model.addAttribute("currentPage", currentPage);
 		

@@ -7,10 +7,19 @@
 <title>paperList.jsp</title>
 </head>
 <body>
-	<!-- teacherMenu include -->
-	<div>
-		<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-	</div>
+	<!-- menu include -->
+	<c:choose>
+		<c:when test="${loginTeacher ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			</div>
+		</c:when>
+		<c:when test="${loginStudent ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			</div>
+		</c:when>
+	</c:choose>
 	
 	<h1>제출 답안</h1>
 	<table border="1">

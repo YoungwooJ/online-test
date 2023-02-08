@@ -7,10 +7,19 @@
 <title>testList.jsp</title>
 </head>
 <body>
-	<!-- teacherMenu include -->
-	<div>
-		<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-	</div>
+	<!-- menu include -->
+	<c:choose>
+		<c:when test="${loginTeacher ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			</div>
+		</c:when>
+		<c:when test="${loginStudent ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			</div>
+		</c:when>
+	</c:choose>
 	
 	<h1>시험 목록</h1>
 	<a href="${pageContext.request.contextPath}/test/addTest">시험등록</a>
@@ -19,7 +28,9 @@
 			<th>시험 번호</th>
 			<th>시험 제목</th>
 			<th>시험 날짜</th>
-			<th>수정/삭제</th>
+			<c:if test="${loginTeacher ne null}">
+				<th>수정/삭제</th>
+			</c:if>
 		</tr>
 		<c:forEach var="t" items="${list}">
 			<tr>
@@ -30,14 +41,16 @@
 				</a>
 				</td>
 				<td>${t.testDate}</td>
-				<td>
-					<a href="${pageContext.request.contextPath}/test/modifyTest?testNo=${t.testNo}">
-						수정
-					</a>
-					<a href="${pageContext.request.contextPath}/test/removeTest?testNo=${t.testNo}">
-						삭제
-					</a>
-				</td>
+				<c:if test="${loginTeacher ne null}">
+					<td>
+						<a href="${pageContext.request.contextPath}/test/modifyTest?testNo=${t.testNo}">
+							수정
+						</a>
+						<a href="${pageContext.request.contextPath}/test/removeTest?testNo=${t.testNo}">
+							삭제
+						</a>
+					</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</table>

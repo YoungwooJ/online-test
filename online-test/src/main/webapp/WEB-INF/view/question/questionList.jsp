@@ -7,10 +7,19 @@
 <title>questionList.jsp</title>
 </head>
 <body>
-	<!-- teacherMenu include -->
-	<div>
-		<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-	</div>
+	<!-- menu include -->
+	<c:choose>
+		<c:when test="${loginTeacher ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			</div>
+		</c:when>
+		<c:when test="${loginStudent ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			</div>
+		</c:when>
+	</c:choose>
 	
 	<h1>시험 문제</h1>
 	<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
@@ -36,25 +45,29 @@
 						</td>
 						</c:if>
 					</tr>
-				<c:forEach var="e" items="${exList}">	
-					<tr>
-						<td>
-							${e.exampleIdx}. ${e.exampleTitle}
-							<c:if test="${studentNo ne null}">
-							<input type="radio" name="answer" value="${e.exampleIdx}">
-							</c:if>
-						</td>
-						<c:if test="${loginTeacher ne null}">
-						<td>
-							<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
-								수정
-							</a>
-							<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
-								삭제
-							</a>
-						</td>
+				<c:forEach var="l" items="${exList}">
+					<c:forEach var="e" items="${l}">
+						<c:if test="${e.questionNo eq q.questionNo}">	
+							<tr>
+								<td>
+									${e.exampleIdx}. ${e.exampleTitle}
+									<c:if test="${studentNo ne null}">
+									<input type="checkbox" name="answer" value="${e.exampleIdx}">
+									</c:if>
+								</td>
+								<c:if test="${loginTeacher ne null}">
+								<td>
+									<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+										수정
+									</a>
+									<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+										삭제
+									</a>
+								</td>
+								</c:if>
+							</tr>
 						</c:if>
-					</tr>
+					</c:forEach>
 				</c:forEach>
 					<c:if test="${loginTeacher ne null}">
 					<tr>

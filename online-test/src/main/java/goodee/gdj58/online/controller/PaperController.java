@@ -54,16 +54,19 @@ public class PaperController {
 	}
 	@PostMapping("/paper/addPaper")
 	public String addPaper(Model model
-							, @RequestParam(value="studentNo", required = true) int studentNo
-							, @RequestParam(value="questionNo", required = true) int questionNo
-							, @RequestParam(value="answer", required = true) int answer) {
-		int row = paperService.addPaper(studentNo, questionNo, answer);
+							, @RequestParam(value="studentNo", required = true) int studentNo[]
+							, @RequestParam(value="questionNo", required = true) int questionNo[]
+							, @RequestParam(value="answer", required = true) int answer[]) {
+		int row = 0;
+		for(int i=0; i<studentNo.length; i++ ) {
+			row = paperService.addPaper(studentNo[i], questionNo[i], answer[i]);
+		}
 		// row == 1 이면 입력성공
 		if(row == 0) {
 			model.addAttribute("errorMsg", "시스템에러로 등록실패하였습니다.");
-			return "question/questionList";
+			return "test/testList";
 		}
-		return "redirect:/paper/paperList?studentNo="+studentNo;
+		return "redirect:/paper/paperList?studentNo="+studentNo[0];
 	}
 	
 	// 리스트

@@ -7,6 +7,20 @@
 <title>loginStudent.jsp</title>
 </head>
 <body>
+	<!-- menu include -->
+	<c:choose>
+		<c:when test="${loginTeacher ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			</div>
+		</c:when>
+		<c:when test="${loginStudent ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			</div>
+		</c:when>
+	</c:choose>
+
 	<!-- 로그인 전 -->
 	<c:if test="${loginStudent eq null}">
 		<h1>학생 로그인</h1>

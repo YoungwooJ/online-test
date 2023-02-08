@@ -7,6 +7,20 @@
 	<title>modifyExample</title>
 	</head>
 <body>
+	<!-- menu include -->
+	<c:choose>
+		<c:when test="${loginTeacher ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			</div>
+		</c:when>
+		<c:when test="${loginStudent ne null}">
+			<div>
+				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			</div>
+		</c:when>
+	</c:choose>
+
 	<h1>보기 수정</h1>
 	<form method="post" action="${pageContext.request.contextPath}/example/modifyExample">
 		<table border="1">
