@@ -16,6 +16,15 @@ import goodee.gdj58.online.vo.Teacher;
 public class TeacherService {
 	@Autowired private TeacherMapper teacherMapper;
 	
+	public String getTeacherId(String teacherId) {
+		// 사용가능한 ID면 "YES" 아니면 "NO" 반환
+		String resultStr = "NO";
+		if(teacherMapper.selectTeacherId(teacherId) == null) {
+			resultStr = "YES";
+		}
+		return resultStr;
+	}
+	
 	public int getTeacherCount(String searchWord) {
 		return teacherMapper.selectTeacherCount(searchWord);
 	}

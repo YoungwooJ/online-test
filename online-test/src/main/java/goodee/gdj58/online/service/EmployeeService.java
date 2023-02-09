@@ -17,6 +17,15 @@ public class EmployeeService {
 	// DI new EmployeeMapper()
 	@Autowired private EmployeeMapper employeeMapper;
 	
+	public String getEmployeeId(String empId) {
+		// 사용가능한 ID면 "YES" 아니면 "NO" 반환
+		String resultStr = "NO";
+		if(employeeMapper.selectEmployeeId(empId) == null) {
+			resultStr = "YES";
+		}
+		return resultStr;
+	}
+	
 	public int getEmployeeCount(String searchWord) {
 		return employeeMapper.selectEmployeeCount(searchWord);
 	}
