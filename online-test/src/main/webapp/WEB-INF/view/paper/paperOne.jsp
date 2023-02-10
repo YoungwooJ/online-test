@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>paperList.jsp</title>
+<title>paperOne.jsp</title>
 </head>
 <body>
 	<!-- menu include -->
@@ -21,54 +21,52 @@
 		</c:when>
 	</c:choose>
 	
-	<h1>시험 제출 답안 목록</h1>
+	<h1>${testTitle} 제출 답안지</h1>
+	<div>응시자 : ${studentName}</div>
+	<div>점수 : ${score}점 / 등급 : ${grade}</div>
 	<table border="1">
 		<c:forEach var="m" items="${list}">
 				<tr>
-					<th>시험명</th>
-					<th>시험일</th>
-					<th>응시자</th>
-					<th>점수</th>
-					<th>등급</th>
-				</tr>
-				<tr>
+					<th>문제 ${m.questionIdx}번. ${m.questionTitle}</th>
+					<!-- 
 					<td>
-						<a href="${pageContext.request.contextPath}/paper/paperOne?studentNo=${m.studentNo}&testNo=${m.testNo}">
-							${m.testTitle}
+						<a href="${pageContext.request.contextPath}/paper/modifyPaper?paperNo=${p.paperNo}">
+							수정
+						</a>
+						<a href="${pageContext.request.contextPath}/paper/removePaper?paperNo=${p.paperNo}">
+							삭제
 						</a>
 					</td>
-					<td>${m.testDate}</td>
-					<td>
-						${m.studentName}
-					</td>
-					<td>${m.score}점</td>
-					<td>${m.grade}</td>
+					 -->
+				</tr>
+				<tr>
+					<td>${m.answer}</td>
 				</tr>
 		</c:forEach>
 	</table>
 	
 	<!-- 페이징 -->
 	<div>
-		<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${startPage}">처음</a>
+		<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${startPage}">처음</a>
 		<c:if test="${currentPage > 10}">
-			<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${currentPage-1}">이전</a>
+			<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${currentPage-1}">이전</a>
 		</c:if>
 		<c:choose>
 			<c:when test="${endPage > 10}">
 				<c:forEach begin="${blockStartNum}" end="${blockLastNum}" step="1" varStatus="status">
-					<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${status.current}">${status.current}</a>
+					<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${status.current}">${status.current}</a>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<c:forEach begin="${startPage}" end="${endPage}" step="1" varStatus="status">
-					<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${status.current}">${status.current}</a>
+					<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${status.current}">${status.current}</a>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		<c:if test="${currentPage < endPage}">
-		<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${currentPage+1}">다음</a>
+		<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${currentPage+1}">다음</a>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${endPage}">마지막</a>
+		<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${endPage}">마지막</a>
 	</div>
 </body>
 </html>

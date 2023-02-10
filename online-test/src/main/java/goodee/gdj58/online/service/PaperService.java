@@ -24,28 +24,36 @@ public class PaperService {
 		return paperMapper.deletePaper(paperNo);
 	}
 	
-	public int modifyPaper(int paperNo, int studentNo, int questionNo, int answer) {
+	public int modifyPaper(int paperNo, int studentNo, int testNo, int questionNo, String answer) {
 		Paper paper = new Paper();
 		paper.setPaperNo(paperNo);
 		paper.setStudentNo(studentNo);
 		paper.setQuestionNo(questionNo);
+		paper.setTestNo(testNo);
 		paper.setAnswer(answer);
 		return paperMapper.updatePaper(paper);
 	}
 	
-	public int addPaper(int studentNo, int questionNo, int answer) {
+	public int addPaper(int studentNo, int testNo, int questionNo, String answer) {
 		Paper paper = new Paper();
 		paper.setStudentNo(studentNo);
 		paper.setQuestionNo(questionNo);
+		paper.setTestNo(testNo);
 		paper.setAnswer(answer);
 		return paperMapper.insertPaper(paper);
 	}
 	
-	public Paper getPaperOne(int paperNo) {
-		return paperMapper.selectPaperOne(paperNo);
+	public List<Map<String, Object>> getPaperOne(int studentNo, int testNo, int currentPage, int rowPerPage) {
+		int beginRow = (currentPage-1)*rowPerPage;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("studentNo", studentNo);
+		paramMap.put("testNo", testNo);
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage", rowPerPage);
+		return paperMapper.selectPaperOne(paramMap);
 	}
 	
-	public List<Paper> getPaperList(int studentNo, int currentPage, int rowPerPage){
+	public List<Map<String, Object>> getPaperList(int studentNo, int currentPage, int rowPerPage){
 		int beginRow = (currentPage-1)*rowPerPage;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("studentNo", studentNo);

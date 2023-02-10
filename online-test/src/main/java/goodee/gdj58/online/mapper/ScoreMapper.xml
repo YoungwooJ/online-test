@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goodee.gdj58.online.mapper.ScoreMapper">
+	
+	<insert id="insertScore" parameterType="goodee.gdj58.online.vo.Score">
+		INSERT INTO score (
+			student_no
+			, test_no
+			, score
+			, grade
+		) VALUES (
+			#{studentNo}
+			, #{testNo}
+			, #{score}
+			, #{grade}
+		)
+	</insert>
+	
+	<select id="selectScoreOne"
+		resultType="goodee.gdj58.online.vo.Score"
+		parameterType="goodee.gdj58.online.vo.Score">
+		
+		SELECT score
+			, grade
+		FROM score
+		WHERE student_no = #{studentNo} AND test_no = #{testNo}
+	</select>
+	
+</mapper>

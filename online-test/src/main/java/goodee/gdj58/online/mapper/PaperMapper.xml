@@ -17,6 +17,7 @@
 		parameterType="goodee.gdj58.online.vo.Paper">
 		UPDATE paper
 		SET student_no = #{studentNo}
+			, test_no = #{testNo}
 			, question_no = #{questionNo}
 			, answer = #{answer}
 		WHERE paper_no = #{paperNo}
@@ -25,40 +26,96 @@
 	<insert id="insertPaper" parameterType="goodee.gdj58.online.vo.Paper">
 		INSERT INTO paper (
 			student_no
+			, test_no
 			, question_no
 			, answer
 		) VALUES (
 			#{studentNo}
+			, #{testNo}
 			, #{questionNo}
 			, #{answer}
 		)
 	</insert>
 	
 	<select id="selectPaperOne"
-		resultType="goodee.gdj58.online.vo.Paper"
-		parameterType="int">
+		resultType="java.util.Map"
+		parameterType="java.util.Map">
 		
-		SELECT 
-			paper_no paperNo
-			, student_no studentNo
-			, question_no questionNo
-			, answer
-		FROM paper
-		WHERE paper_no = #{paperNo}
+		SELECT p.paper_no paperNo
+			, p.student_no studentNo
+			, p.test_no testNo
+			, p.question_no questionNo
+			, p.answer answer
+			, p.test_title testTitle
+			, p.question_idx questionIdx
+			, p.question_title questionTitle
+			, p.student_name studentName
+			, s.score score
+			, s.grade grade
+			FROM (SELECT p.paper_no
+					, p.student_no
+					, p.test_no
+					, p.question_no
+					, p.answer
+					, p.test_title
+					, p.question_idx
+					, p.question_title
+					, s.student_name
+					FROM(SELECT p.paper_no
+							, p.student_no
+							, p.test_no
+							, p.question_no
+							, p.answer
+							, p.test_title
+							, q.question_idx
+							, q.question_title
+							FROM (SELECT 
+									p.paper_no 
+									, p.student_no 
+									, p.test_no 
+									, p.question_no 
+									, p.answer 
+									, t.test_title 
+									FROM paper p INNER JOIN test t
+									ON p.test_no = t.test_no) p INNER JOIN question q
+							ON p.question_no = q.question_no) p INNER JOIN student s
+					ON p.student_no = s.student_no) p INNER JOIN score s
+				ON p.student_no = s.student_no AND p.test_no = s.test_no
+		WHERE p.student_no = #{studentNo} AND p.test_no = #{testNo}
+		ORDER BY p.paper_no ASC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<select id="selectPaperList" 
-		resultType="goodee.gdj58.online.vo.Paper"
+		resultType="java.util.Map"
 		parameterType="java.util.Map">
 		
-		SELECT 
-			paper_no paperNo
-			, student_no studentNo
-			, question_no questionNo
-			, answer
-		FROM paper
-		WHERE student_no = #{studentNo}
-		ORDER BY paper_no ASC
+		SELECT DISTINCT p.student_no studentNo
+			, p.test_no testNo
+			, p.test_title testTitle
+			, p.test_date testDate
+			, p.student_name studentName
+			, s.score score
+			, s.grade grade
+			FROM (SELECT DISTINCT p.student_no
+					, p.test_no
+					, p.test_title
+					, p.test_date
+					, s.student_name
+					FROM(SELECT DISTINCT p.student_no 
+									, p.test_no 
+									, t.test_title 
+									, t.test_date
+									FROM paper p INNER JOIN test t
+									ON p.test_no = t.test_no) p INNER JOIN student s
+					ON p.student_no = s.student_no) p INNER JOIN score s
+			ON p.student_no = s.student_no
+		<where>
+			<if test="studentNo != 0">
+				p.student_no = #{studentNo}
+			</if>
+		</where>
+		ORDER BY p.test_no ASC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 </mapper>

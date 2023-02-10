@@ -7,6 +7,8 @@
 	 -->
 	<a href="${pageContext.request.contextPath}/test/testList">시험관리</a>
 	
+	<a href="${pageContext.request.contextPath}/paper/paperList">답안관리</a>
+	
 	<a href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">비밀번호수정</a>
 	
 	<a href="${pageContext.request.contextPath}/teacher/logout">로그아웃</a>

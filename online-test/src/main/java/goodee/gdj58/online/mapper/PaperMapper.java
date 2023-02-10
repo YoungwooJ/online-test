@@ -13,6 +13,6 @@ public interface PaperMapper {
 	int deletePaper(int paperNo);
 	int updatePaper(Paper paper);
 	int insertPaper(Paper paper);
-	Paper selectPaperOne(int paperNo);
-	List<Paper> selectPaperList(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectPaperOne(Map<String, Object> paramMap);
+	List<Map<String, Object>> selectPaperList(Map<String, Object> paramMap);
 }

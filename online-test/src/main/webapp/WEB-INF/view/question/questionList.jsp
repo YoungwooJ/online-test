@@ -33,6 +33,7 @@
 							${q.questionIdx}. ${q.questionTitle}
 							<input type="hidden" name="questionNo" value="${q.questionNo}">
 							<input type="hidden" name="studentNo" value="${studentNo}">
+							<input type="hidden" name="testNo" value="${testNo}">
 						</th>
 						<c:if test="${loginTeacher ne null}">
 						<td>
@@ -52,7 +53,7 @@
 								<td>
 									${e.exampleIdx}. ${e.exampleTitle}
 									<c:if test="${studentNo ne null}">
-									<input type="checkbox" name="answer" value="${e.exampleIdx}">
+									<input type="checkbox" name="answer" value="${e.exampleOx}">
 									</c:if>
 								</td>
 								<c:if test="${loginTeacher ne null}">

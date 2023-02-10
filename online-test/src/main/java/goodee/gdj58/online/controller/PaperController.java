@@ -1,6 +1,7 @@
 package goodee.gdj58.online.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import goodee.gdj58.online.service.PaperService;
-import goodee.gdj58.online.vo.Paper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -31,8 +31,8 @@ public class PaperController {
 	@GetMapping("/paper/modifyPaper")
 	public String modifyPaper(Model model
 								, @RequestParam(value="paperNo", required = true) int paperNo) {
-		Paper paper = paperService.getPaperOne(paperNo);
-		model.addAttribute("paper", paper);
+		// Paper paper = paperService.getPaperOne(paperNo);
+		// model.addAttribute("paper", paper);
 		return "paper/modifyPaper";
 	}
 	// 수정 액션
@@ -40,9 +40,10 @@ public class PaperController {
 	public String modifyPaper(Model model
 								, @RequestParam(value="paperNo", required = true) int paperNo
 								, @RequestParam(value="studentNo", required = true) int studentNo
+								, @RequestParam(value="testNo", required = true) int testNo
 								, @RequestParam(value="questionNo", required = true) int questionNo
-								, @RequestParam(value="answer", required = true) int answer) {
-		paperService.modifyPaper(paperNo, studentNo, questionNo, answer);
+								, @RequestParam(value="answer", required = true) String answer) {
+		paperService.modifyPaper(paperNo, studentNo, testNo, questionNo, answer);
 		
 		return "redirect:/paper/paperList?studentNo="+studentNo;
 	}
@@ -55,32 +56,93 @@ public class PaperController {
 	@PostMapping("/paper/addPaper")
 	public String addPaper(Model model
 							, @RequestParam(value="studentNo", required = true) int studentNo[]
+							, @RequestParam(value="testNo", required = true) int testNo[]
 							, @RequestParam(value="questionNo", required = true) int questionNo[]
-							, @RequestParam(value="answer", required = true) int answer[]) {
+							, @RequestParam(value="answer", required = true) String answer[]) {
 		int row = 0;
+		int score = 0;
+		String grade = "D";
 		for(int i=0; i<studentNo.length; i++ ) {
-			row = paperService.addPaper(studentNo[i], questionNo[i], answer[i]);
+			if(answer[i].equals("정답")) {
+				score += 5;
+			}
+			row = paperService.addPaper(studentNo[i], testNo[i], questionNo[i], answer[i]);
 		}
-		// row == 1 이면 입력성공
+		if(score > 90) {
+			grade = "A";
+		} else if(score > 80) {
+			grade = "B";
+		} else if(score > 70) {
+			grade = "C";
+		} 
+		// row != 0 이면 입력성공
 		if(row == 0) {
 			model.addAttribute("errorMsg", "시스템에러로 등록실패하였습니다.");
 			return "test/testList";
 		}
-		return "redirect:/paper/paperList?studentNo="+studentNo[0];
+		return "redirect:/score/addScore?studentNo="+studentNo[0]+"&testNo="+testNo[0]+"&score="+score+"&grade="+grade;
 	}
 	
-	// 리스트
-	@GetMapping("/paper/paperList")
-	public String paperList(Model model
-							, @RequestParam(value="studentNo", required = true) int studentNo
+	// 답안지 상세정보
+	@GetMapping("/paper/paperOne")
+	public String paperOne(Model model
+							, @RequestParam(value="studentNo", required = false) int studentNo
+							, @RequestParam(value="testNo", required = false) int testNo
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
 		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
 		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
-		List<Paper> list = paperService.getPaperList(studentNo, currentPage, rowPerPage);
+		List<Map<String, Object>> list = paperService.getPaperOne(studentNo, testNo, currentPage, rowPerPage);
+		String testTitle = null;
+		String studentName = null;
+		int score = 0;
+		String grade = null;
+		for(Map<String, Object> m : list) {
+			// System.out.println(m);
+			testTitle = (String)(m.get("testTitle"));
+			studentName = (String)(m.get("studentName"));
+			score = (int)(m.get("score"));
+			grade = (String)(m.get("grade"));
+		}
+		model.addAttribute("testTitle", testTitle);
+		model.addAttribute("studentName", studentName);
+		model.addAttribute("score", score);
+		model.addAttribute("grade", grade);
 		model.addAttribute("list", list);
 		model.addAttribute("studentNo", studentNo);
+		model.addAttribute("testNo", testNo);
+		model.addAttribute("currentPage", currentPage);
+		
+		int count = paperService.getPaperCount();
+		int endPage = (int)Math.ceil((double)count / (double)rowPerPage);
+		// 블록 페이지
+		// 현재 페이지가 속한 block의 시작 번호, 끝 번호를 계산
+		int blockNum = (int)Math.floor((currentPage-1)/rowPerPage);
+		int blockStartNum = (rowPerPage*blockNum) + 1;
+		int blockLastNum = blockStartNum + (rowPerPage-1);
+		
+		model.addAttribute("startPage", 1);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("blockStartNum", blockStartNum);
+		model.addAttribute("blockLastNum", blockLastNum);
+		return "paper/paperOne";
+	}
+	
+	// 리스트
+	@GetMapping("/paper/paperList")
+	public String paperList(Model model
+							, @RequestParam(value="studentNo", defaultValue = "0") int studentNo
+							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
+							// int currentPage = request.getParameter("currentPage");
+		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
+		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
+		List<Map<String, Object>> list = paperService.getPaperList(studentNo, currentPage, rowPerPage);
+		model.addAttribute("list", list);
+		if(studentNo != 0) {
+			model.addAttribute("studentNo", studentNo);
+		}
 		model.addAttribute("currentPage", currentPage);
 		
 		int count = paperService.getPaperCount();

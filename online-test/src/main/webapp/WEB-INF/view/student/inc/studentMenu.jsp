@@ -6,7 +6,7 @@
 	 -->
 	<a href="${pageContext.request.contextPath}/test/testList">시험 응시</a>
 	 
-	<a href="${pageContext.request.contextPath}/paper/paperList">답안 확인</a>
+	<a href="${pageContext.request.contextPath}/paper/paperList?studentNo=${loginStudent.studentNo}">답안 확인</a>
 	
 	<a href="${pageContext.request.contextPath}/student/modifyStudentPw">비밀번호 수정</a>
 	
