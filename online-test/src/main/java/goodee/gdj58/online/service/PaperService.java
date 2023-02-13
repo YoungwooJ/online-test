@@ -34,12 +34,13 @@ public class PaperService {
 		return paperMapper.updatePaper(paper);
 	}
 	
-	public int addPaper(int studentNo, int testNo, int questionNo, String answer) {
+	public int addPaper(int studentNo, int testNo, int questionNo, String answer, int submit) {
 		Paper paper = new Paper();
 		paper.setStudentNo(studentNo);
 		paper.setQuestionNo(questionNo);
 		paper.setTestNo(testNo);
 		paper.setAnswer(answer);
+		paper.setSubmit(submit);
 		return paperMapper.insertPaper(paper);
 	}
 	

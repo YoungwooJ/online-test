@@ -1,5 +1,6 @@
 package goodee.gdj58.online.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,13 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import goodee.gdj58.online.service.ExampleService;
 import goodee.gdj58.online.service.PaperService;
+import goodee.gdj58.online.vo.Example;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class PaperController {
 	@Autowired PaperService paperService;
+	@Autowired ExampleService exampleService;
 	
 	// 삭제
 	@GetMapping("/paper/removePaper")
@@ -58,7 +62,8 @@ public class PaperController {
 							, @RequestParam(value="studentNo", required = true) int studentNo[]
 							, @RequestParam(value="testNo", required = true) int testNo[]
 							, @RequestParam(value="questionNo", required = true) int questionNo[]
-							, @RequestParam(value="answer", required = true) String answer[]) {
+							, @RequestParam(value="answer", required = true) String answer[]
+							, @RequestParam(value="submit", required = true) int submit[]) {
 		int row = 0;
 		int score = 0;
 		String grade = "D";
@@ -66,7 +71,7 @@ public class PaperController {
 			if(answer[i].equals("정답")) {
 				score += 5;
 			}
-			row = paperService.addPaper(studentNo[i], testNo[i], questionNo[i], answer[i]);
+			row = paperService.addPaper(studentNo[i], testNo[i], questionNo[i], answer[i], submit[i]);
 		}
 		if(score > 90) {
 			grade = "A";
@@ -94,6 +99,17 @@ public class PaperController {
 		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
 		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
 		List<Map<String, Object>> list = paperService.getPaperOne(studentNo, testNo, currentPage, rowPerPage);
+		
+		int questionNo = 0;
+		List<List<Example>> exList = new ArrayList<>();
+		for(Map<String, Object> q : list) {
+			questionNo = (Integer)q.get("questionNo");
+			log.debug("questionNo : "+questionNo);
+			List<Example> eList = exampleService.getExampleList(questionNo, currentPage, rowPerPage);
+			exList.add(eList);
+		}
+		model.addAttribute("exList", exList);
+		
 		String testTitle = null;
 		String studentName = null;
 		int score = 0;

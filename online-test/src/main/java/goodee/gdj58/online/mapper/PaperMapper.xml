@@ -20,6 +20,7 @@
 			, test_no = #{testNo}
 			, question_no = #{questionNo}
 			, answer = #{answer}
+			, submit = #{submit}
 		WHERE paper_no = #{paperNo}
 	</update>
 
@@ -29,11 +30,13 @@
 			, test_no
 			, question_no
 			, answer
+			, submit
 		) VALUES (
 			#{studentNo}
 			, #{testNo}
 			, #{questionNo}
 			, #{answer}
+			, #{submit}
 		)
 	</insert>
 	
@@ -46,6 +49,7 @@
 			, p.test_no testNo
 			, p.question_no questionNo
 			, p.answer answer
+			, p.submit submit
 			, p.test_title testTitle
 			, p.question_idx questionIdx
 			, p.question_title questionTitle
@@ -57,6 +61,7 @@
 					, p.test_no
 					, p.question_no
 					, p.answer
+					, p.submit
 					, p.test_title
 					, p.question_idx
 					, p.question_title
@@ -66,6 +71,7 @@
 							, p.test_no
 							, p.question_no
 							, p.answer
+							, p.submit
 							, p.test_title
 							, q.question_idx
 							, q.question_title
@@ -75,6 +81,7 @@
 									, p.test_no 
 									, p.question_no 
 									, p.answer 
+									, p.submit
 									, t.test_title 
 									FROM paper p INNER JOIN test t
 									ON p.test_no = t.test_no) p INNER JOIN question q

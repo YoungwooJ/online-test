@@ -54,6 +54,7 @@
 									${e.exampleIdx}. ${e.exampleTitle}
 									<c:if test="${studentNo ne null}">
 									<input type="checkbox" name="answer" value="${e.exampleOx}">
+									<input type="hidden" name="submit" value="${e.exampleIdx}">
 									</c:if>
 								</td>
 								<c:if test="${loginTeacher ne null}">

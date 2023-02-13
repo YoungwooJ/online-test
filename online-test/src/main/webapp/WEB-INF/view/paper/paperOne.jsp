@@ -26,23 +26,44 @@
 	<div>점수 : ${score}점 / 등급 : ${grade}</div>
 	<table border="1">
 		<c:forEach var="m" items="${list}">
-				<tr>
-					<th>문제 ${m.questionIdx}번. ${m.questionTitle}</th>
-					<!-- 
-					<td>
-						<a href="${pageContext.request.contextPath}/paper/modifyPaper?paperNo=${p.paperNo}">
-							수정
-						</a>
-						<a href="${pageContext.request.contextPath}/paper/removePaper?paperNo=${p.paperNo}">
-							삭제
-						</a>
-					</td>
-					 -->
-				</tr>
-				<tr>
-					<td>${m.answer}</td>
-				</tr>
-		</c:forEach>
+			<tr>
+				<th>문제 ${m.questionIdx}번. ${m.questionTitle}</th>
+			</tr>	
+			<c:forEach var="l" items="${exList}">
+				<c:forEach var="e" items="${l}">
+					<c:if test="${e.questionNo eq m.questionNo}">
+						<c:choose>
+							<c:when test="${e.exampleOx eq '정답'}">
+								<tr>
+									<td>
+										<span style="color:red;">
+											${e.exampleIdx}. ${e.exampleTitle} 
+											<c:if test="${m.answer eq '정답'}">
+											&#11093;
+											</c:if>
+										</span>
+									</td>
+								</tr>
+							</c:when>
+							<c:when test="${m.submit eq e.exampleIdx}">
+								<tr>
+									<td>
+										<span style="font-weight:bold;">${e.exampleIdx}. ${e.exampleTitle} &#10060;</span>
+									</td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td>
+										${e.exampleIdx}. ${e.exampleTitle}
+									</td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</c:forEach>
+			</c:forEach>
+		</c:forEach>		
 	</table>
 	
 	<!-- 페이징 -->

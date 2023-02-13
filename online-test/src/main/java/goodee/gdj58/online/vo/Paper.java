@@ -9,5 +9,6 @@ public class Paper {
 	private int testNo;
 	private int questionNo;
 	private String answer;
+	private int submit;
 }
 

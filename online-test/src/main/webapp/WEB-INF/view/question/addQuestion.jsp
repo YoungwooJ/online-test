@@ -27,7 +27,7 @@
 		<table border="1">
 			<tr>
 				<td>시험 번호</td>
-				<td><input type="number" name="testNo" value="${testNo}"></td>
+				<td><input type="number" name="testNo" value="${testNo}" readonly="readonly"></td>
 			</tr>
 			<tr>
 				<td>문제 번호</td>
