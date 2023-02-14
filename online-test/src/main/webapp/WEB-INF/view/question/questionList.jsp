@@ -89,26 +89,26 @@
 	
 	<!-- 페이징 -->
 	<div>
-		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${startPage}">처음</a>
+		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${startPage}&testNo=${testNo}">처음</a>
 		<c:if test="${currentPage > 10}">
-			<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${currentPage-1}">이전</a>
+			<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${currentPage-1}&testNo=${testNo}">이전</a>
 		</c:if>
 		<c:choose>
 			<c:when test="${endPage > 10}">
 				<c:forEach begin="${blockStartNum}" end="${blockLastNum}" step="1" varStatus="status">
-					<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${status.current}">${status.current}</a>
+					<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${status.current}&testNo=${testNo}">${status.current}</a>
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
 				<c:forEach begin="${startPage}" end="${endPage}" step="1" varStatus="status">
-					<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${status.current}">${status.current}</a>
+					<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${status.current}&testNo=${testNo}">${status.current}</a>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 		<c:if test="${currentPage < endPage}">
-		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${currentPage+1}">다음</a>
+		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${currentPage+1}&testNo=${testNo}">다음</a>
 		</c:if>
-		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${endPage}">마지막</a>
+		<a href="${pageContext.request.contextPath}/question/questionList?currentPage=${endPage}&testNo=${testNo}">마지막</a>
 	</div>
 </body>
 </html>

@@ -84,7 +84,7 @@ public class QuestionController {
 							, HttpSession session
 							, @RequestParam(value="testNo", required = true) int testNo
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
+							, @RequestParam(value="rowPerPage", defaultValue= "20") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
 		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
 		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");

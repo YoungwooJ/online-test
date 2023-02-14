@@ -73,11 +73,11 @@ public class PaperController {
 			}
 			row = paperService.addPaper(studentNo[i], testNo[i], questionNo[i], answer[i], submit[i]);
 		}
-		if(score > 90) {
+		if(score >= 90) {
 			grade = "A";
-		} else if(score > 80) {
+		} else if(score >= 80) {
 			grade = "B";
-		} else if(score > 70) {
+		} else if(score >= 70) {
 			grade = "C";
 		} 
 		// row != 0 이면 입력성공
@@ -94,7 +94,7 @@ public class PaperController {
 							, @RequestParam(value="studentNo", required = false) int studentNo
 							, @RequestParam(value="testNo", required = false) int testNo
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-							, @RequestParam(value="rowPerPage", defaultValue= "10") int rowPerPage) { 
+							, @RequestParam(value="rowPerPage", defaultValue= "20") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
 		log.debug("\u001B[31m"+currentPage+"<-- currentPage");
 		log.debug("\u001B[31m"+rowPerPage+"<-- rowPerPage");
