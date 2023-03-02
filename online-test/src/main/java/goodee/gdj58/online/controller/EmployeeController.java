@@ -50,7 +50,7 @@ public class EmployeeController {
 		Employee resultEmp= employeeService.login(emp);
 		session.setAttribute("loginEmp", resultEmp);
 		log.debug("\u001B[31m"+"loginEmp Action");
-		return "redirect:/employee/empList";
+		return "redirect:/loginEmp";
 	}
 	
 	@GetMapping("/employee/logout")

@@ -123,9 +123,9 @@
             </div>
           </div>
         </div>
-        
-		<a href="${pageContext.request.contextPath}/test/addTest">시험등록</a>
-		
+        <c:if test="${loginTeacher ne null}">
+			<a href="${pageContext.request.contextPath}/test/addTest">시험등록</a>
+		</c:if>
 		<!-- 검색 기능 -->
 		<form method="get" action="${pageContext.request.contextPath}/test/testList">
 			<input type="text" placeholder="시험 이름" name="searchWord" value="${searchWord}">
@@ -262,6 +262,9 @@
 		<a href="${pageContext.request.contextPath}/test/testList?currentPage=${endPage}&searchWord=${searchWord}">마지막</a>
 	</div>
     <!-- ========================= feature style-5 end ========================= -->
+	
+	<!-- footer include -->
+	<c:import url="/WEB-INF/view/footer.jsp"></c:import>
 		
     <!-- ========================= JS here ========================= -->
     <script src="${pageContext.request.contextPath}/assets/js/bootstrap-5.0.0-beta1.min.js"></script>
