@@ -50,7 +50,7 @@
             <div class="row align-items-center">
               <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
-                  <a class="navbar-brand" href="${pageContext.request.contextPath}/index.html">
+                  <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
                     <img src="${pageContext.request.contextPath}/assets/img/logo/logo.png" alt="Logo" />
                   </a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent6" aria-controls="navbarSupportedContent6" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,20 +62,16 @@
                   <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent6">
                     <ul id="nav6" class="navbar-nav ms-auto">
                       <li class="nav-item">
-                        <a class="page-scroll active" href="#home">Home</a>
+                        <a class="page-scroll" href="${pageContext.request.contextPath}/index">홈</a>
                       </li>
                       <li class="nav-item">
-                        <a class="page-scroll" href="#feature">직원 로그인</a>
+                        <a class="page-scroll" href="${pageContext.request.contextPath}/loginEmp">직원 로그인</a>
                       </li>
                       <li class="nav-item">
-                        <a class="page-scroll" href="#about">About</a>
-                      </li>
-
-                      <li class="nav-item">
-                        <a class="page-scroll" href="#pricing">Pricing</a>
+                        <a class="page-scroll" href="${pageContext.request.contextPath}/loginTeacher">선생님 로그인</a>
                       </li>
                       <li class="nav-item">
-                        <a class="page-scroll" href="#contact">Contact</a>
+                        <a class="page-scroll" href="${pageContext.request.contextPath}/loginStudent">학생 로그인</a>
                       </li>
                     </ul>
                   </div>
@@ -95,7 +91,7 @@
         </div>
         <!-- navbar area -->
       </header>
-      <!-- ========================= header-6 end ========================= -->	
+      <!-- ========================= header-6 end ========================= -->
 	  
       <!-- ========================= hero-5 start ========================= -->
       <div class="hero-section hero-style-5 img-bg" style="background-image: url('${pageContext.request.contextPath}/assets/img/hero/hero-5/hero-bg.svg')">

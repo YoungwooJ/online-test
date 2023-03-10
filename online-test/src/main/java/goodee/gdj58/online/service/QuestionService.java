@@ -16,8 +16,8 @@ import goodee.gdj58.online.vo.Question;
 public class QuestionService {
 	@Autowired private QuestionMapper questionMapper;
 	
-	public int getQuestionCount() {
-		return questionMapper.selectQuestionCount();
+	public int getQuestionCount(int testNo) {
+		return questionMapper.selectQuestionCount(testNo);
 	}
 	
 	public int removeQuestion(int questionNo) {

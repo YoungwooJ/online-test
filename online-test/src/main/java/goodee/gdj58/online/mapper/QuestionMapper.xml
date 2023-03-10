@@ -3,9 +3,15 @@
 <mapper namespace="goodee.gdj58.online.mapper.QuestionMapper">
 	
 	<select id="selectQuestionCount"
+		parameterType="int"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM question
+		<where>
+			<if test="testNo != 0">
+				test_no = #{testNo}
+			</if>
+		</where>
 	</select>
 	
 	<delete id="deleteQuestion" parameterType="int">

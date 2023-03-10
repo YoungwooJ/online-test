@@ -3,8 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>paperOne.jsp</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<title>paperOne.jsp</title>
+	<meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-5.0.0-beta1.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/LineIcons.2.0.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/tiny-slider.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/lindy-uikit.css"/>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
 	<!-- menu include -->
@@ -21,53 +35,52 @@
 		</c:when>
 	</c:choose>
 	
-	<h1>${testTitle} 제출 답안지</h1>
-	<div>응시자 : ${studentName}</div>
-	<div>점수 : ${score}점 / 등급 : ${grade}</div>
-	<table border="1">
+	<div class="container" style="column-count:2; gap: 100px; column-rule: 1px solid #ced4da;">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row">
+					<div class='col-lg-12 col-mg-12'>
+						<h2 class="text-center font-weight-bold">${testTitle} 제출 답안지</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div>응시자 : ${studentName}</div>
+		<div>점수 : ${score}점 / 등급 : ${grade}</div>
 		<c:forEach var="m" items="${list}">
-			<tr>
-				<th>문제 ${m.questionIdx}번. ${m.questionTitle}</th>
-			</tr>	
+			<div>문제 ${m.questionIdx}번. ${m.questionTitle}</div>
 			<c:forEach var="l" items="${exList}">
 				<c:forEach var="e" items="${l}">
 					<c:if test="${e.questionNo eq m.questionNo}">
 						<c:choose>
 							<c:when test="${e.exampleOx eq '정답'}">
-								<tr>
-									<td>
-										<span style="color:red;">
-											${e.exampleIdx}. ${e.exampleTitle} 
-											<c:if test="${m.answer eq '정답'}">
-											&#11093;
-											</c:if>
-										</span>
-									</td>
-								</tr>
+								<div>
+									<span style="color:red;">
+										${e.exampleIdx}. ${e.exampleTitle}
+										<c:if test="${m.answer eq '정답'}">
+										&#11093;
+										</c:if>
+									</span>
+								</div>
 							</c:when>
 							<c:when test="${m.submit eq e.exampleIdx}">
-								<tr>
-									<td>
-										<span style="font-weight:bold;">${e.exampleIdx}. ${e.exampleTitle} &#10060;</span>
-									</td>
-								</tr>
+								<div>
+									<span style="font-weight:bold;">${e.exampleIdx}. ${e.exampleTitle} &#10060;</span>
+								</div>
 							</c:when>
 							<c:otherwise>
-								<tr>
-									<td>
-										${e.exampleIdx}. ${e.exampleTitle}
-									</td>
-								</tr>
+								<div>
+									${e.exampleIdx}. ${e.exampleTitle}
+								</div>
 							</c:otherwise>
 						</c:choose>
 					</c:if>
 				</c:forEach>
 			</c:forEach>
 		</c:forEach>		
-	</table>
-	
+	</div>
 	<!-- 페이징 -->
-	<div>
+	<div style="text-align:center;">
 		<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${startPage}&studentNo=${studentNo}&testNo=${testNo}">처음</a>
 		<c:if test="${currentPage > 10}">
 			<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${currentPage-1}&studentNo=${studentNo}&testNo=${testNo}">이전</a>

@@ -21,32 +21,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>	
 </head>
 <body>
-	<h1>학생 추가</h1>
-	<div style="color:red;">${errorMsg}</div>
-	
-	<div>
-		<input type="text" id="id">
-		<button type="button" id="ckBtn">중복검사</button>
-	</div>
-	
-	<form method="post" action="${pageContext.request.contextPath}/employee/student/addStudent">
-		<table border="1">
-			<tr>
-				<td>학생 아이디</td>
-				<td><input type="text" id="studentId" name="studentId" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>학생 비밀번호</td>
-				<td><input type="password" id="studentPw" name="studentPw"></td>
-			</tr>
-			<tr>
-				<td>학생 이름</td>
-				<td><input type="text" id="studentName" name="studentName"></td>
-			</tr>	
-		</table>
-		<button type="button" id="addBtn">학생추가</button>
-	</form>
-	
 	<!-- ========================= about style-4 start ========================= -->
     <section id="about" class="about-section about-style-4">
       <div class="container">

@@ -82,7 +82,7 @@ public class QuestionController {
 	@GetMapping("/question/questionList")
 	public String questionList(Model model
 							, HttpSession session
-							, @RequestParam(value="testNo", required = true) int testNo
+							, @RequestParam(value="testNo", defaultValue = "0", required = true) int testNo
 							, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 							, @RequestParam(value="rowPerPage", defaultValue= "20") int rowPerPage) { 
 							// int currentPage = request.getParameter("currentPage");
@@ -91,6 +91,14 @@ public class QuestionController {
 		
 		List<Question> qList = questionService.getQuestionList(testNo, currentPage, rowPerPage);
 		model.addAttribute("qList", qList);
+		
+		int qCount_ = questionService.getQuestionCount(testNo);
+		/*
+		for(int i=0; i<qCount_; i++) {
+			
+		}
+		*/
+		model.addAttribute("qCount", qCount_);
 		
 		int questionNo = 0;
 		List<List<Example>> exList = new ArrayList<>();
@@ -114,7 +122,7 @@ public class QuestionController {
 		model.addAttribute("testNo", testNo);
 		model.addAttribute("currentPage", currentPage);
 		
-		int count = questionService.getQuestionCount();
+		int count = questionService.getQuestionCount(testNo);
 		int endPage = (int)Math.ceil((double)count / (double)rowPerPage);
 		// 블록 페이지
 		// 현재 페이지가 속한 block의 시작 번호, 끝 번호를 계산
