@@ -22,6 +22,7 @@
 </head>
 <body>
     <!-- ========================= preloader start ========================= -->
+    <!-- 
     <div class="preloader">
       <div class="loader">
         <div class="spinner">
@@ -37,12 +38,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ========================= preloader end ========================= -->
 
     <!-- ========================= hero-section-wrapper-5 start ========================= -->
     <section id="home" class="hero-section-wrapper-5">
-
+	  <!-- 로그인 전 -->
+      <c:if test="${loginEmp eq null}">
       <!-- ========================= header-6 start ========================= -->
       <header class="header header-6">
         <div class="navbar-area">
@@ -92,7 +94,14 @@
         <!-- navbar area -->
       </header>
       <!-- ========================= header-6 end ========================= -->
-	  
+	  </c:if>
+	  <!-- 로그인 상태 -->
+      <c:if test="${loginEmp ne null}">
+      	<!-- empMenu include -->
+		<div>
+			<c:import url="/WEB-INF/view/employee/inc/empMenu.jsp"></c:import>
+		</div>
+      </c:if>
       <!-- ========================= hero-5 start ========================= -->
       <div class="hero-section hero-style-5 img-bg" style="background-image: url('${pageContext.request.contextPath}/assets/img/hero/hero-5/hero-bg.svg')">
         <div class="container">
@@ -107,11 +116,11 @@
 						<table class="table table-bordered">
 							<tr>
 								<td>직원 아이디</td>
-								<td><input type="text" name="empId"></td>
+								<td><input type="text" name="empId" value="admin"></td>
 							</tr>
 							<tr>
 								<td>직원 비밀번호</td>
-								<td><input type="password" name="empPw"></td>
+								<td><input type="password" name="empPw" value="1234"></td>
 							</tr>
 						</table>
 	                </p>

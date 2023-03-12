@@ -34,77 +34,79 @@
 			</div>
 		</c:when>
 	</c:choose>
-	
-	<div class="container" style="column-count:2; gap: 100px; column-rule: 1px solid #ced4da;">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="row">
-					<div class='col-lg-12 col-mg-12'>
-						<h2 class="text-center font-weight-bold">시험 문제</h2>
-					</div>
+	<br><br><br><br><br><br>
+	<div class="container">
+		<div class="col-lg-12">
+			<div class="row">
+				<div class='col-lg-12 col-mg-12'>
+					<h2 class="text-center font-weight-bold">시험 문제</h2>
 				</div>
 			</div>
 		</div>
-	<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
-		<c:if test="${loginTeacher ne null}">
-			<div>
-				<a href="${pageContext.request.contextPath}/question/addQuestion?testNo=${testNo}">문제 추가</a>
-			</div>
-		</c:if>
-		<div></div>
-		<c:forEach var="q" items="${qList}" varStatus="status">
-			<div class="col-lg-12 col-mg-12">
-			<h5>
-				<span>${q.questionIdx}.</span>
-				${q.questionTitle}
-				<input type="hidden" name="questionNo" value="${q.questionNo}">
-				<input type="hidden" name="studentNo" value="${studentNo}">
-				<input type="hidden" name="testNo" value="${testNo}">
-				<c:if test="${loginTeacher ne null}">
-					<a href="${pageContext.request.contextPath}/question/modifyQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
-						수정
-					</a>
-					<a href="${pageContext.request.contextPath}/question/removeQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
-						삭제
-					</a>
-				</c:if>
-			</h5>
-			<c:forEach var="l" items="${exList}">
-				<c:forEach var="e" items="${l}">
-					<c:if test="${e.questionNo eq q.questionNo}">	
-						<ul>
-							<li>
-								${e.exampleIdx}. ${e.exampleTitle}
-								<c:if test="${studentNo ne null}">
-								<input type="checkbox" name="answer" value="${e.exampleOx}">
-								<input type="hidden" name="submit" value="${e.exampleIdx}">
-								</c:if>
-								<c:if test="${loginTeacher ne null}">
-									<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
-										수정
-									</a>
-									<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
-										삭제
-									</a>
-								</c:if>
-							</li>
-						</ul>
-					</c:if>
-				</c:forEach>
-			</c:forEach>
+	</div>
+	<br>
+	<div class="container" style="column-count:2; gap: 100px; column-rule: 1px solid #ced4da;">	
+		<form method="post" action="${pageContext.request.contextPath}/paper/addPaper">
 			<c:if test="${loginTeacher ne null}">
 				<div>
-					<a href="${pageContext.request.contextPath}/example/addExample?questionNo=${q.questionNo}&testNo=${testNo}">
-						보기 추가
-					</a>
-				</div>	
+					<a href="${pageContext.request.contextPath}/question/addQuestion?testNo=${testNo}">문제 추가</a>
+				</div>
 			</c:if>
-			</div>
-		</c:forEach>			
-		<c:if test="${studentNo ne null}">
-			<button type="submit">제출</button>
-		</c:if>
-	</form>
+			<div></div>
+			<c:forEach var="q" items="${qList}" varStatus="status">
+				<div class="col-lg-12 col-mg-12">
+				<br>
+				<h5>
+					<span>${q.questionIdx}.</span>
+					${q.questionTitle}
+					<input type="hidden" name="questionNo" value="${q.questionNo}">
+					<input type="hidden" name="studentNo" value="${studentNo}">
+					<input type="hidden" name="testNo" value="${testNo}">
+					<c:if test="${loginTeacher ne null}">
+						<a href="${pageContext.request.contextPath}/question/modifyQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
+							수정
+						</a>
+						<a href="${pageContext.request.contextPath}/question/removeQuestion?questionNo=${q.questionNo}&testNo=${testNo}">
+							삭제
+						</a>
+					</c:if>
+				</h5>
+				<c:forEach var="l" items="${exList}">
+					<c:forEach var="e" items="${l}">
+						<c:if test="${e.questionNo eq q.questionNo}">	
+							<ul>
+								<li>
+									${e.exampleIdx}. ${e.exampleTitle}
+									<c:if test="${studentNo ne null}">
+									<input type="checkbox" name="answer" value="${e.exampleOx}">
+									<input type="hidden" name="submit" value="${e.exampleIdx}">
+									</c:if>
+									<c:if test="${loginTeacher ne null}">
+										<a href="${pageContext.request.contextPath}/example/modifyExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+											수정
+										</a>
+										<a href="${pageContext.request.contextPath}/example/removeExample?exampleNo=${e.exampleNo}&testNo=${testNo}">
+											삭제
+										</a>
+									</c:if>
+								</li>
+							</ul>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+				<c:if test="${loginTeacher ne null}">
+					<div>
+						<a href="${pageContext.request.contextPath}/example/addExample?questionNo=${q.questionNo}&testNo=${testNo}">
+							보기 추가
+						</a>
+					</div>	
+				</c:if>
+				</div>
+			</c:forEach>			
+			<c:if test="${studentNo ne null}">
+				<button type="submit">제출</button>
+			</c:if>
+		</form>
 	</div>
 	<!-- 페이징 -->
 	<div style="text-align:center;">

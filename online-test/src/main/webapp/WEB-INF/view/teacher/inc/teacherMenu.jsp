@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- ========================= preloader start ========================= -->
+    <!-- 
     <div class="preloader">
       <div class="loader">
         <div class="spinner">
@@ -17,6 +18,7 @@
         </div>
       </div>
     </div>
+     -->
     <!-- ========================= preloader end ========================= -->
 
     <!-- ========================= hero-section-wrapper-5 start ========================= -->
@@ -29,9 +31,18 @@
             <div class="row align-items-center">
               <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg">
-                  <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
-                    <img src="${pageContext.request.contextPath}/assets/img/logo/logo.png" alt="Logo" />
-                  </a>
+                  <c:choose>
+                	  <c:when test="${loginTeacher ne null}">
+                	      <a class="navbar-brand" href="${pageContext.request.contextPath}/loginTeacher">
+                    	  	  <img src="${pageContext.request.contextPath}/assets/img/logo/logo.png" alt="Logo" />
+                  		  </a>
+                	  </c:when>
+                	  <c:otherwise>
+                	      <a class="navbar-brand" href="${pageContext.request.contextPath}/index">
+		                      <img src="${pageContext.request.contextPath}/assets/img/logo/logo.png" alt="Logo" />
+		                  </a>
+                	  </c:otherwise>
+                  </c:choose>  
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent6" aria-controls="navbarSupportedContent6" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="toggler-icon"></span>
                     <span class="toggler-icon"></span>
@@ -40,9 +51,18 @@
   
                   <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent6">
                     <ul id="nav6" class="navbar-nav ms-auto">
-                      <li class="nav-item">
-                        <a class="page-scroll" href="${pageContext.request.contextPath}/index">홈</a>
-                      </li>
+                      <c:choose>
+                    	  <c:when test="${loginTeacher ne null}">
+                    	      <li class="nav-item">
+		                        <a class="page-scroll" href="${pageContext.request.contextPath}/loginTeacher">홈</a>
+		                      </li>
+                    	  </c:when>
+                    	  <c:otherwise>
+                    	      <li class="nav-item">
+		                        <a class="page-scroll" href="${pageContext.request.contextPath}/index">홈</a>
+		                      </li>
+                    	  </c:otherwise>
+                      </c:choose>
                       <!-- 
 							시험회차(table : test) 관리(시험회차 CRUD)
 							개별시험회차 클릭하면 그 회차의 문제 리스트 출력(문제 CRUD)

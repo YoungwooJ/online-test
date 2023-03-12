@@ -23,7 +23,7 @@
               <div class="footer-widget wow fadeInUp" data-wow-delay=".3s">
                 <h6>바로가기</h6>
                 <ul class="links">
-                  <li> <a href="${pageContext.request.contextPath}/index">홈</a> </li>
+                  <li> <a href="#0">홈</a> </li>
                   <li> <a href="#0">시험</a> </li>
                   <li> <a href="#0">답안</a> </li>
                   <li> <a href="#0">고객센터</a> </li>

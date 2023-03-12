@@ -81,9 +81,12 @@
                 <h2 class="mb-30 wow fadeInUp" data-wow-delay=".2s">환영합니다!</h2>
                 <p class="mb-30 wow fadeInUp" data-wow-delay=".4s">LMS 온라인 시험을 통해 다양한 시험에 응시하고 실력을 향상시키세요.</p>
                 <!-- Button to Open the Modal -->
-                <button class="button button-lg radius-50 wow fadeInUp" data-wow-delay=".6s" data-bs-toggle="modal" data-bs-target="#login_box">시작하기 <i class="lni lni-chevron-right"></i> </button>
+                <a href="${pageContext.request.contextPath}/loginEmp" class="button button-lg radius-50 wow fadeInUp" data-wow-delay=".6s">직원 로그인 <i class="lni lni-chevron-right"></i></a>
+                <a href="${pageContext.request.contextPath}/loginTeacher" class="button button-lg radius-50 wow fadeInUp" data-wow-delay=".6s">선생님 로그인<i class="lni lni-chevron-right"></i></a>
+                <a href="${pageContext.request.contextPath}/loginStudent" class="button button-lg radius-50 wow fadeInUp" data-wow-delay=".6s">학생 로그인<i class="lni lni-chevron-right"></i></a>
               	
               	<!-- Modal -->
+              	<!-- 
               	<div class="modal fade" id="login_box" tabindex="-1" role="dialog" aria-labelledby="login_boxLabel" aria-hidden="true">
               		<div class="modal-dialog modal-lg" style="display:inline-block; text-align:left; vertical-align:middle; width:1000px; height:700px;" role="document">
               			<div class="modal-content">
@@ -102,7 +105,7 @@
               			</div>
               		</div>
               	</div>
-              	
+              	 -->
               </div>
             </div>
             <div class="col-lg-6 align-self-end">

@@ -77,7 +77,7 @@
                 </li>          
               </ul>
               <!-- 페이징 -->
-			  <div>
+			  <div style="text-align:center;">
 				  <a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${startPage}">처음</a>
 				  <c:if test="${currentPage > 10}">
 					  <a href="${pageContext.request.contextPath}/paper/paperList?currentPage=${currentPage-1}">이전</a>

@@ -21,6 +21,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>	
 </head>
 <body>
+	<!-- empMenu include -->
+	<div>
+		<c:import url="/WEB-INF/view/employee/inc/empMenu.jsp"></c:import>
+	</div>
+	
     <!-- ========================= about style-4 start ========================= -->
     <section id="about" class="about-section about-style-4">
       <div class="container">

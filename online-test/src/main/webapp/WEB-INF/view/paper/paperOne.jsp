@@ -34,21 +34,28 @@
 			</div>
 		</c:when>
 	</c:choose>
-	
-	<div class="container" style="column-count:2; gap: 100px; column-rule: 1px solid #ced4da;">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="row">
-					<div class='col-lg-12 col-mg-12'>
-						<h2 class="text-center font-weight-bold">${testTitle} 제출 답안지</h2>
-					</div>
+	<br><br><br><br><br><br>
+	<div class="container">
+		<div class="col-lg-12">
+			<div class="row">
+				<div class='col-lg-12 col-mg-12'>
+					<h2 class="text-center font-weight-bold">${testTitle} 제출 답안지</h2>
+				</div>
+			</div>
+			<br>
+			<div class="container">
+				<div class='col-lg-12 col-mg-12'>
+					<h4>응시자 : ${studentName}</h4>
+					<h4>점수 : ${score}점 / 등급 : ${grade}</h4>
 				</div>
 			</div>
 		</div>
-		<div>응시자 : ${studentName}</div>
-		<div>점수 : ${score}점 / 등급 : ${grade}</div>
+	</div>
+	<br>
+	<div class="container" style="column-count:2; gap: 100px; column-rule: 1px solid #ced4da;">	
 		<c:forEach var="m" items="${list}">
-			<div>문제 ${m.questionIdx}번. ${m.questionTitle}</div>
+			<br>
+			<h5>문제 ${m.questionIdx}번. ${m.questionTitle}</h5>
 			<c:forEach var="l" items="${exList}">
 				<c:forEach var="e" items="${l}">
 					<c:if test="${e.questionNo eq m.questionNo}">
@@ -102,5 +109,17 @@
 		</c:if>
 		<a href="${pageContext.request.contextPath}/paper/paperOne?currentPage=${endPage}&studentNo=${studentNo}&testNo=${testNo}">마지막</a>
 	</div>
+	<!-- footer include -->
+	<c:import url="/WEB-INF/view/footer.jsp"></c:import>
+	
+	<!-- ========================= scroll-top start ========================= -->
+    <a href="#" class="scroll-top"> <i class="lni lni-chevron-up"></i> </a>
+    <!-- ========================= scroll-top end ========================= -->
+    
+    <!-- ========================= JS here ========================= -->
+    <script src="${pageContext.request.contextPath}/assets/js/bootstrap-5.0.0-beta1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/tiny-slider.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/wow.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 </body>
 </html>

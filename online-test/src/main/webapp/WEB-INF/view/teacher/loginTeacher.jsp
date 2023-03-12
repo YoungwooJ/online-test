@@ -21,21 +21,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
-	<!-- menu include -->
-	<c:choose>
-		<c:when test="${loginTeacher ne null}">
-			<div>
-				<c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
-			</div>
-		</c:when>
-		<c:when test="${loginStudent ne null}">
-			<div>
-				<c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
-			</div>
-		</c:when>
-	</c:choose>
-	
     <!-- ========================= preloader start ========================= -->
+    <!-- 
     <div class="preloader">
       <div class="loader">
         <div class="spinner">
@@ -51,12 +38,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ========================= preloader end ========================= -->
 
     <!-- ========================= hero-section-wrapper-5 start ========================= -->
     <section id="home" class="hero-section-wrapper-5">
-
+	  <!-- 로그인 전 -->
+      <c:if test="${loginTeacher eq null}">
       <!-- ========================= header-6 start ========================= -->
       <header class="header header-6">
         <div class="navbar-area">
@@ -106,7 +94,20 @@
         <!-- navbar area -->
       </header>
       <!-- ========================= header-6 end ========================= -->
-	  
+	  </c:if>
+	  <!-- menu include -->
+	  <c:choose>
+		  <c:when test="${loginTeacher ne null}">
+			  <div>
+				  <c:import url="/WEB-INF/view/teacher/inc/teacherMenu.jsp"></c:import>
+			  </div>
+		  </c:when>
+	  	  <c:when test="${loginStudent ne null}">
+			  <div>
+				  <c:import url="/WEB-INF/view/student/inc/studentMenu.jsp"></c:import>
+			  </div>
+		  </c:when>
+	  </c:choose>
       <!-- ========================= hero-5 start ========================= -->
       <div class="hero-section hero-style-5 img-bg" style="background-image: url('${pageContext.request.contextPath}/assets/img/hero/hero-5/hero-bg.svg')">
         <div class="container">
@@ -121,11 +122,11 @@
 						<table class="table table-bordered">
 							<tr>
 								<td>선생님 아이디</td>
-								<td><input type="text" name="teacherId"></td>
+								<td><input type="text" name="teacherId" value="t1"></td>
 							</tr>
 							<tr>
 								<td>선생님 비밀번호</td>
-								<td><input type="password" name="teacherPw"></td>
+								<td><input type="password" name="teacherPw" value="1234"></td>
 							</tr>
 						</table>
 	                </p>
